@@ -1,0 +1,27 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# Simulated database of players with initial attributes
+players = [
+    {'id': 1, 'name': 'Alice', 'level': 1, 'health': 100},
+    {'id': 2, 'name': 'Bob', 'level': 1, 'health': 100},
+    {'id': 3, 'name': 'Charlie', 'level': 1, 'health': 100}
+]
+
+# Endpoint to get all players
+@app.route('/players', methods=['GET'])
+def get_players():
+    return jsonify(players), 200
+
+# Endpoint to get a specific player
+@app.route('/players/<int:player_id>', methods=['GET'])
+def get_player(player_id):
+    player = next((p for p in players if p['id'] == player_id), None)
+    if player:
+        return jsonify(player), 200
+    else:
+        return jsonify({'error': 'Player not found'}), 404
+
+# Endpoint to update player attributes (level and health)
+@app.route('/players/<int:player_id⬤
