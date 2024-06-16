@@ -1,0 +1,56 @@
+class World:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+        self.entities = []
+
+    def add_entity(self, entity):
+        self.entities.append(entity)
+
+    def describe(self):
+        print(f"Welcome to the {self.name}!")
+        print(self.description)
+        print("Entities in this world:")
+        for entity in self.entities:
+            print(f"- {entity}")
+
+class Realm:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+        self.entities = []
+
+    def add_entity(self, entity):
+        self.entities.append(entity)
+
+    def describe(self):
+        print(f"Welcome to the {self.name}!")
+        print(self.description)
+        print("Entities in this realm:")
+        for entity in self.entities:
+            print(f"- {entity}")
+
+# Define the main world and realms
+main_world = World("Main World", "A vast and diverse realm.")
+realm1 = Realm("Realm 1", "A mystical dimension filled with ancient ruins.")
+realm2 = Realm("Realm 2", "A futuristic world with advanced technology.")
+
+# Adding entities to the main world
+main_world.add_entity("Player")
+main_world.add_entity("NPC 1")
+main_world.add_entity("Quest Giver")
+
+# Adding entities to Realm 1
+realm1.add_entity("Mage")
+realm1.add_entity("Warrior")
+
+# Adding entities to Realm 2
+realm2.add_entity("Scientist")
+realm2.add_entity("Robot")
+
+# Describe each world and realm
+main_world.describe()
+print("\n")
+realm1.describe()
+print("\n")
+realm2.describe()
