@@ -1,0 +1,19 @@
+class Symbol:
+    def __init__(self, symbol_type, name, description):
+        self.symbol_type = symbol_type
+        self.name = name
+        self.description = description
+
+    def __str__(self):
+        return f"{self.symbol_type}: {self.name}\nDescription: {self.description}"
+
+# Example usage:
+if __name__ == "__main__":
+    # Creating instances of Symbol
+    symbol1 = Symbol("Character", "Hero", "A brave adventurer wielding a sword.")
+    symbol2 = Symbol("Item", "Potion", "A magical elixir that restores health.")
+
+    # Printing symbols
+    print(symbol1)
+    print("\n")
+    print(symbol2)
