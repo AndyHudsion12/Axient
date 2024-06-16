@@ -1,0 +1,76 @@
+import pygame
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Set up display
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption('Game Menu')
+
+# Define colors
+white = (255, 255, 255)
+black = (0, 0, 0)
+gray = (169, 169, 169)
+
+# Define fonts
+font = pygame.font.Font(None, 74)
+small_font = pygame.font.Font(None, 36)
+
+# Menu items
+menu_items = ['Start Game', 'Options', 'Quit']
+menu_functions = ['start_game', 'options', 'quit']
+
+# Menu class
+class Menu:
+    def __init__(self, items, functions):
+        self.items = items
+        self.functions = functions
+        self.selected = 0
+
+    def display_menu(self):
+        screen.fill(black)
+        for i, item in enumerate(self.items):
+            if i == self.selected:
+                label = font.render(item, True, white)
+            else:
+                label = font.render(item, True, gray)
+            screen.blit(label, (width // 2 - label.get_width() // 2, height // 2 + i * 100 - 50))
+        pygame.display.flip()
+
+    def navigate(self, direction):
+        self.selected = (self.selected + direction) % len(self.items)
+
+    def select(self):
+        func = getattr(self, self.functions[self.selected])
+        func()
+
+    def start_game(self):
+        print("Starting the game...")
+
+    def options(self):
+        print("Opening options...")
+
+    def quit(self):
+        pygame.quit()
+        sys.exit()
+
+menu = Menu(menu_items, menu_functions)
+
+# Main loop
+running = True
+while running:
+    menu.display_menu()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                menu.navigate(-1)
+            elif event.key == pygame.K_DOWN:
+                menu.navigate(1)
+            elif event.key == pygame.K_RETURN:
+                menu.select()
+
+pygame.quit()
