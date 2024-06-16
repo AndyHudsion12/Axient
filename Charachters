@@ -1,0 +1,87 @@
+git init
+git add .
+git commit -m "Initial commit with James and Snow characters"
+git remote add origin https://github.com/yourusername/CharacterGame.git
+git push -u origin masterpackage your.package.name
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.RelativeLayout
+import android.view.ViewGroup.LayoutParams
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Set up James character
+        val jamesImageView = ImageView(this).apply {
+            setImageResource(R.drawable.james)
+            id = generateViewId()
+            layoutParams = RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            ).apply {
+                addRule(RelativeLayout.ALIGN_PARENT_START)
+                addRule(RelativeLayout.CENTER_VERTICAL)
+                setMargins(50, 0, 0, 0)
+            }
+        }
+
+        val jamesTextView = TextView(this).apply {
+            text = "James"
+            textSize = 20f
+            layoutParams = RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            ).apply {
+                addRule(RelativeLayout.BELOW, jamesImageView.id)
+                setMargins(50, 20, 0, 0)
+            }
+        }
+
+        // Set up Snow character
+        val snowImageView = ImageView(this).apply {
+            setImageResource(R.drawable.snow)
+            id = generateViewId()
+            layoutParams = RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            ).apply {
+                addRule(RelativeLayout.ALIGN_PARENT_END)
+                addRule(RelativeLayout.CENTER_VERTICAL)
+                setMargins(0, 0, 50, 0)
+            }
+        }
+
+        val snowTextView = TextView(this).apply {
+            text = "Snow"
+            textSize = 20f
+            layoutParams = RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            ).apply {
+                addRule(RelativeLayout.BELOW, snowImageView.id)
+                setMargins(0, 20, 50, 0)
+            }
+        }
+
+        // Add characters to the layout
+        val layout = findViewById<RelativeLayout>(R.id.mainLayout)
+        layout.addView(jamesImageView)
+        layout.addView(jamesTextView)
+        layout.addView(snowImageView)
+        layout.addView(snowTextView)
+    }
+}<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainLayout"
+    tools:context=".MainActivity">
+
+</RelativeLayout>git initgit add .git commit -m "Initial commit with James and Snow characters"git remote add origin https://github.com/yourusername/CharacterGame.gitgit push -u origin master
