@@ -1,0 +1,59 @@
+class Language:
+    def __init__(self, name):
+        self.name = name
+        self.dictionary = {}  # Dictionary for translating words
+
+    def add_word_translation(self, word, translation):
+        self.dictionary[word] = translation
+
+    def translate_word(self, word):
+        return self.dictionary.get(word, f"No translation found for '{word}' in {self.name}.")
+
+class Entity:
+    def __init__(self, name, primary_language):
+        self.name = name
+        self.primary_language = primary_language
+        self.known_languages = {primary_language.name}
+
+    def learn_language(self, language):
+        self.known_languages.add(language.name)
+
+    def speak(self, language, sentence):
+        if language.name not in self.known_languages:
+            return f"{self.name} does not know {language.name}."
+        
+        translated_sentence = []
+        for word in sentence.split():
+            translation = language.translate_word(word)
+            translated_sentence.append(translation)
+        
+        return " ".join(translated_sentence)
+
+
+# Example usage:
+if __name__ == "__main__":
+    # Define languages
+    english = Language("English")
+    english.add_word_translation("hello", "hello")
+    english.add_word_translation("world", "world")
+
+    spanish = Language("Spanish")
+    spanish.add_word_translation("hello", "hola")
+    spanish.add_word_translation("world", "mundo")
+
+    # Define entities
+    alice = Entity("Alice", english)
+    bob = Entity("Bob", spanish)
+
+    # Bob learns English
+    bob.learn_language(english)
+
+    # Alice speaks in English
+    alice_sentence = "hello world"
+    print(f"Alice says: {alice_sentence}")
+    print(f"Translated: {alice.speak(english, alice_sentence)}")
+
+    # Bob speaks in Spanish
+    bob_sentence = "hello world"
+    print(f"Bob says: {bob_sentence}")
+    print(f"Translated: {bob.speak(spanish, bob_sentence)}")
