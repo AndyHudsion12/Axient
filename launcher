@@ -1,0 +1,38 @@
+import tkinter as tk
+from tkinter import messagebox
+import subprocess
+import os
+
+# Define functions for buttons
+def start_game():
+    try:
+        # Assuming your game script is named 'game.py'
+        subprocess.Popen(['python', 'game.py'])
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to start game: {e}")
+
+def open_options():
+    messagebox.showinfo("Options", "Options menu is not implemented yet.")
+
+def quit_launcher():
+    root.destroy()
+
+# Create the main window
+root = tk.Tk()
+root.title("Game Launcher")
+
+# Set window size
+root.geometry("300x200")
+
+# Create buttons
+start_button = tk.Button(root, text="Start Game", command=start_game, width=20)
+options_button = tk.Button(root, text="Options", command=open_options, width=20)
+quit_button = tk.Button(root, text="Quit", command=quit_launcher, width=20)
+
+# Arrange buttons on the window
+start_button.pack(pady=10)
+options_button.pack(pady=10)
+quit_button.pack(pady=10)
+
+# Run the Tkinter event loop
+root.mainloop()
