@@ -1,0 +1,38 @@
+import random
+
+class Monster:
+    def __init__(self, name, health, attack, defense):
+        self.name = name
+        self.health = health
+        self.attack = attack
+        self.defense = defense
+
+    def __str__(self):
+        return f"{self.name} (HP: {self.health}, ATK: {self.attack}, DEF: {self.defense})"
+
+class MonsterGenerator:
+    def __init__(self):
+        self.names = ['Goblin', 'Troll', 'Dragon', 'Vampire', 'Werewolf']
+        self.health_range = (50, 200)
+        self.attack_range = (10, 50)
+        self.defense_range = (5, 30)
+
+    def generate_monster(self):
+        name = random.choice(self.names)
+        health = random.randint(*self.health_range)
+        attack = random.randint(*self.attack_range)
+        defense = random.randint(*self.defense_range)
+        return Monster(name, health, attack, defense)
+
+    def generate_monsters(self, count):
+        return [self.generate_monster() for _ in range(count)]
+
+# Create a monster generator
+generator = MonsterGenerator()
+
+# Generate a list of monsters
+monsters = generator.generate_monsters(5)
+
+# Print the generated monsters
+for monster in monsters:
+    print(monster)
