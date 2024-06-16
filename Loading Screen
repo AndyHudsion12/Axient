@@ -1,0 +1,100 @@
+import tkinter as tk
+from tkinter import messagebox
+import subprocess
+import os
+import pygame
+import time
+
+# Read current version from version.txt
+def get_current_version():
+    try:
+        with open('version.txt', 'r') as file:
+            version = file.read().strip()
+        return version
+    except FileNotFoundError:
+        return "Unknown"
+
+# Write new version to version.txt
+def set_current_version(new_version):
+    with open('version.txt', 'w') as file:
+        file.write(new_version)
+
+# Define functions for buttons
+def start_game():
+    try:
+        # Show loading screen
+        show_loading_screen()
+        # Assuming your game script is named 'game.py'
+        subprocess.Popen(['python', 'game.py'])
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to start game: {e}")
+
+def open_options():
+    messagebox.showinfo("Options", "Options menu is not implemented yet.")
+
+def quit_launcher():
+    root.destroy()
+
+def change_version():
+    new_version = version_entry.get().strip()
+    if new_version:
+        set_current_version(new_version)
+        version_label.config(text=f"Current Version: {new_version}")
+        messagebox.showinfo("Version Changed", f"Version changed to: {new_version}")
+    else:
+        messagebox.showerror("Error", "Please enter a valid version.")
+
+def show_loading_screen():
+    # Initialize Pygame
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption('Loading')
+
+    # Define colors
+    black = (0, 0, 0)
+    white = (255, 255, 255)
+
+    # Set font and text
+    font = pygame.font.Font(None, 74)
+    text = font.render('JELLEN', True, white)
+    text_rect = text.get_rect(center=(400, 300))
+
+    # Fill background
+    screen.fill(black)
+    screen.blit(text, text_rect)
+    pygame.display.flip()
+
+    # Display for 3 seconds
+    time.sleep(3)
+    pygame.quit()
+
+# Create the main window
+root = tk.Tk()
+root.title("Game Launcher")
+
+# Set window size
+root.geometry("300x300")
+
+# Get current version
+current_version = get_current_version()
+
+# Create widgets
+version_label = tk.Label(root, text=f"Current Version: {current_version}", font=('Helvetica', 12))
+start_button = tk.Button(root, text="Start Game", command=start_game, width=20)
+options_button = tk.Button(root, text="Options", command=open_options, width=20)
+quit_button = tk.Button(root, text="Quit", command=quit_launcher, width=20)
+version_entry_label = tk.Label(root, text="Enter New Version:", font=('Helvetica', 10))
+version_entry = tk.Entry(root, width=20)
+change_version_button = tk.Button(root, text="Change Version", command=change_version, width=20)
+
+# Arrange widgets on the window
+version_label.pack(pady=10)
+start_button.pack(pady=10)
+options_button.pack(pady=10)
+quit_button.pack(pady=10)
+version_entry_label.pack(pady=5)
+version_entry.pack(pady=5)
+change_version_button.pack(pady=10)
+
+# Run the Tkinter event loop
+root.mainloop()
