@@ -1,0 +1,56 @@
+class Cosmetic:
+    def __init__(self, name):
+        self.name = name
+
+    def equip(self):
+        raise NotImplementedError("This method should be overridden by subclasses")
+
+class Cape(Cosmetic):
+    def equip(self):
+        print(f"Equipping cape: {self.name}")
+
+class Hat(Cosmetic):
+    def equip(self):
+        print(f"Equipping hat: {self.name}")
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.equipped_cape = None
+        self.equipped_hat = None
+
+    def equip_cape(self, cape):
+        if isinstance(cape, Cape):
+            self.equipped_cape = cape
+            cape.equip()
+        else:
+            print("Only capes can be equipped here.")
+
+    def equip_hat(self, hat):
+        if isinstance(hat, Hat):
+            self.equipped_hat = hat
+            hat.equip()
+        else:
+            print("Only hats can be equipped here.")
+
+    def show_equipped(self):
+        if self.equipped_cape:
+            print(f"Currently equipped cape: {self.equipped_cape.name}")
+        else:
+            print("No cape equipped.")
+        
+        if self.equipped_hat:
+            print(f"Currently equipped hat: {self.equipped_hat.name}")
+        else:
+            print("No hat equipped.")
+
+# Example Usage
+player = Player("Hero")
+
+cape1 = Cape("Mystic Cape")
+hat1 = Hat("Wizard Hat")
+
+player.equip_cape(cape1)
+player.equip_hat(hat1)
+
+player.show_equipped()
